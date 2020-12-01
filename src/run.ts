@@ -15,14 +15,12 @@ interface Arguments {
   part: Part;
 }
 
-export type Solver = (input: string[]) => string;
+export type Solver = (lines: string[]) => string;
 
 export const run = async (args: Arguments): Promise<string> => {
   const { day, part } = args;
-
   const solver = solvers[day][part];
   const input = await fs.readFile(`./inputs/${day}.txt`, "utf-8");
   const lines = input.split("\n");
-
   return solver(lines);
 };

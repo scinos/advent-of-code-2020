@@ -1,4 +1,5 @@
 {
     "spec": "./src/**/test.ts",
-    "reporter": "progress"
+    "reporter": "spec",
+    "slow": "-1"
 }
