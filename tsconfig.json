@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+      "module": "commonjs",
+      "noImplicitAny": true,
+      "removeComments": true,
+      "preserveConstEnums": true,
+      "sourceMap": true,
+      "lib": ["ES2019"],
+      "typeRoots" : ["./node_modules/@types"],
+      "target": "ES2019"
+  },
+  "include": [
+      "main.ts",
+      "./src/**/*"
+  ],
+  "exclude": [
+      "node_modules",
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "editor.tabSize": 2,
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#60031F",
+    "titleBar.activeBackground": "#87052C",
+    "titleBar.activeForeground": "#FFFBFC"
+  },
+  "eslint.validate": ["javascript", "markdown", "typescript"]
+}
