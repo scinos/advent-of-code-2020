@@ -97,12 +97,12 @@ export const run = async (args: Arguments): Promise<string> => {
   return solver(lines);
 };
 
-const measure = (fn: () => string): { duration: number; result: string } => {
+const measure = (fn: () => string): { duration: string; result: string } => {
   const start = process.hrtime.bigint();
   const result = fn();
   const end = process.hrtime.bigint();
   return {
-    duration: Number((end - start) / BigInt(1e6)),
+    duration: (Number(end - start) / 1e6).toFixed(3),
     result,
   };
 };
@@ -135,7 +135,9 @@ export const runAll = async (): Promise<string> => {
       const { duration: duration2, result: result2 } = measure(() =>
         solver["2"](input)
       );
-      const totalDuration = duration1 + duration2;
+      const totalDuration = (
+        parseFloat(duration1) + parseFloat(duration2)
+      ).toFixed(3);
 
       return [
         `-- Day ${day} --              (${totalDuration}ms)`,
