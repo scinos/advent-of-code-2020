@@ -1,4 +1,4 @@
-import { promises as fs } from "fs";
+import { promises as fs, readFileSync } from "fs";
 
 // Explicit imports for easier static analysis
 import * as solverDay01 from "./01";
@@ -95,4 +95,58 @@ export const run = async (args: Arguments): Promise<string> => {
   const input = await fs.readFile(`./inputs/${day}.txt`, "utf-8");
   const lines = input.split("\n");
   return solver(lines);
+};
+
+const measure = (fn: () => string): { duration: number; result: string } => {
+  const start = process.hrtime.bigint();
+  const result = fn();
+  const end = process.hrtime.bigint();
+  return {
+    duration: Number((end - start) / BigInt(1e6)),
+    result,
+  };
+};
+
+export const runAll = async (): Promise<string> => {
+  const inputs = (Object.keys(solvers) as Day[]).reduce<Record<Day, string[]>>(
+    (acc, day) => {
+      try {
+        return {
+          ...acc,
+          [day]: readFileSync(`./inputs/${day}.txt`, "utf-8").split("\n"),
+        };
+      } catch {
+        return acc;
+      }
+    },
+    {} as Record<Day, string[]>
+  );
+
+  const results = (Object.entries(solvers) as [
+    Day,
+    Record<Part, Solver>
+  ][]).map(([day, solver]) => {
+    const input = inputs[day];
+
+    try {
+      const { duration: duration1, result: result1 } = measure(() =>
+        solver["1"](input)
+      );
+      const { duration: duration2, result: result2 } = measure(() =>
+        solver["2"](input)
+      );
+      const totalDuration = duration1 + duration2;
+
+      return [
+        `-- Day ${day} --              (${totalDuration}ms)`,
+        `  Part 1: ${result1.padEnd(15)} (${duration1}ms)`,
+        `  Part 2: ${result2.padEnd(15)} (${duration2}ms)`,
+        ``,
+      ].join("\n");
+    } catch {
+      return null;
+    }
+  });
+
+  return results.filter((r) => r).join("\n");
 };

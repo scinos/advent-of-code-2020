@@ -2,31 +2,44 @@
 /* eslint no-console: "off" */
 
 import * as yargs from "yargs";
-import { run, Day, Part } from "./src/run";
 
-interface Arguments {
-  day: Day;
-  part: Part;
-}
+import { run, runAll } from "./src/run";
+import type { Day, Part } from "./src/run";
 
 const main = async (): Promise<string> => {
-  const args = (yargs as yargs.Argv<Arguments>)
-    .usage(
-      "$0 [day] [part]",
-      "run solutions for a given day",
-      (yargs: yargs.Argv) => {
-        const a = yargs
-          .positional("day", {
-            type: "string",
-            coerce: (v: string) => v.padStart(2, "0"),
-          })
-          .positional("part", { type: "string", choices: ["1", "2"] })
-          .demandOption(["day", "part"]);
-        return a;
+  const args = yargs
+    .usage("$0 --day [day] --part [part]\nor\n$0 --all\n")
+    .options({
+      all: {
+        alias: "a",
+        describe: "run all days",
+      },
+      day: {
+        describe: "day to run",
+        coerce: (v: string): Day => v.padStart(2, "0") as Day,
+      },
+      part: {
+        describe: "part of the day to run",
+        choices: ["1", "2"] as Part[],
+      },
+    })
+    .check((args) => {
+      if (!args.day && !args.all) {
+        throw new Error("Error: --day or --all required");
       }
-    )
-    .parse();
-  return run(args);
+      if (args.day && !args.part) {
+        throw new Error("Error: You must specify --part when using --day");
+      }
+      return true;
+    }).argv;
+
+  if (args.day && args.part) {
+    return run({ day: args.day, part: args.part });
+  }
+  if (args.all) {
+    return runAll();
+  }
+  throw new Error("Unknown error pargin args");
 };
 
 main().then(console.log).catch(console.error);
