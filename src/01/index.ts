@@ -24,6 +24,8 @@ export const part2: Solver = (lines) => {
     const n = numbers[i];
     for (let h = i + 1; h < numbers.length; h++) {
       const m = numbers[h];
+      if (n + m > TARGET) continue;
+
       for (let j = h + 1; j < numbers.length; j++) {
         const o = numbers[j];
 
