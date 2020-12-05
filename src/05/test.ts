@@ -2,7 +2,7 @@ import { strict as assert } from "assert";
 import { part1, part2 } from ".";
 import { readInput } from "../lib/readInput";
 
-describe.only("Day 5", () => {
+describe("Day 5", () => {
   it("Part 1", () => {
     assert.equal(part1(["FBFBBFFRLR"]), "357");
     assert.equal(part1(["BFFFBBFRRR"]), "567");

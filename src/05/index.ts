@@ -40,4 +40,5 @@ export const part2: Solver = (input) => {
   for (let i = 0; i < seats.length; i++) {
     if (seats[i + 1] - seats[i] === 2) return String(seats[i] + 1);
   }
+  throw new Error("Seat not found!");
 };
