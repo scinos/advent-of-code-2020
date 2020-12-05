@@ -1,33 +1,23 @@
 import { Solver } from "../run";
 
-const reduce = (
-  input: string,
-  min: number,
-  max: number,
-  lower: string
-): number => {
-  let lowerBound = min;
-  let upperBound = max;
+const reduce = (input: string, lower: string): number => {
+  const size = 2 ** input.length;
+  let upperBound = size;
 
   for (let i = 0; i < input.length; i++) {
     const dir = input[i];
-    const size = upperBound - lowerBound + 1;
 
     if (dir === lower) {
-      upperBound -= size / 2;
-    } else {
-      lowerBound += size / 2;
+      upperBound -= size >> (i + 1);
     }
   }
 
-  return upperBound;
+  return upperBound - 1;
 };
 
-const getRow = (input: string): number =>
-  reduce(input.substr(0, 7), 0, 127, "F");
+const getRow = (input: string): number => reduce(input.substr(0, 7), "F");
 
-const getSeat = (input: string): number =>
-  reduce(input.substr(7, 3), 0, 7, "L");
+const getSeat = (input: string): number => reduce(input.substr(7, 3), "L");
 
 export const part1: Solver = (input) => {
   const seats = input.map((line) => getRow(line) * 8 + getSeat(line));

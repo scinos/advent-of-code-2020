@@ -29,6 +29,7 @@ module.exports = {
     "func-names": "off",
     "default-case": "off",
     "max-classes-per-file": "off",
+    "no-bitwise": "off",
   },
   settings: {
     "import/resolver": {
