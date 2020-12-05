@@ -20,7 +20,7 @@ const main = async (): Promise<string> => {
       },
       part: {
         describe: "part of the day to run",
-        choices: ["1", "2"] as Part[],
+        coerce: (v: number): Part => String(v) as Part,
       },
     })
     .check((args) => {
