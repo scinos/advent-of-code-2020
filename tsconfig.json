@@ -5,9 +5,9 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "lib": ["ES2019", "es2020"],
+    "lib": ["ESNext"],
     "typeRoots": ["./node_modules/@types"],
-    "target": "ES2019"
+    "target": "es2020"
   },
   "include": ["main.ts", "./src/**/*"],
   "exclude": ["node_modules"]

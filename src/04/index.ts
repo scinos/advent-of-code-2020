@@ -1,4 +1,5 @@
 import { Solver } from "../run";
+import { reduceGroup } from "../lib/readInput";
 
 type Passport = {
   byr?: string;
@@ -103,18 +104,13 @@ const extractFields = (line: string): Passport => {
 };
 
 const extractPassports = (lines: string[]): Passport[] => {
-  let currentPassport: Passport = {};
-  const passports: Passport[] = [];
-
-  for (const line of lines) {
-    if (line === "") {
-      passports.push(currentPassport);
-      currentPassport = {};
-    } else {
-      currentPassport = { ...currentPassport, ...extractFields(line) };
-    }
-  }
-  passports.push(currentPassport);
+  const passports = reduceGroup(lines, (group) => {
+    let passport: Passport = {};
+    group.forEach((line) => {
+      passport = { ...passport, ...extractFields(line) };
+    });
+    return passport;
+  });
   return passports;
 };
 

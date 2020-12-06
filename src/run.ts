@@ -97,12 +97,12 @@ export const run = async (args: Arguments): Promise<string> => {
   return solver(lines);
 };
 
-const measure = (fn: () => string): { duration: string; result: string } => {
+const measure = (fn: () => string): { duration: number; result: string } => {
   const start = process.hrtime.bigint();
   const result = fn();
   const end = process.hrtime.bigint();
   return {
-    duration: (Number(end - start) / 1e6).toFixed(3),
+    duration: Number(end - start) / 1e6,
     result,
   };
 };
@@ -122,6 +122,8 @@ export const runAll = async (): Promise<string> => {
     {} as Record<Day, string[]>
   );
 
+  let durationAll = 0;
+
   const results = (Object.entries(solvers) as [
     Day,
     Record<Part, Solver>
@@ -135,14 +137,17 @@ export const runAll = async (): Promise<string> => {
       const { duration: duration2, result: result2 } = measure(() =>
         solver["2"](input)
       );
-      const totalDuration = (
-        parseFloat(duration1) + parseFloat(duration2)
-      ).toFixed(3);
+      const totalDuration = duration1 + duration2;
+      durationAll += totalDuration;
+
+      const duration1Ms = `(${duration1.toFixed(3)}ms)`;
+      const duration2Ms = `(${duration2.toFixed(3)}ms)`;
+      const totalDurationMs = `(${totalDuration.toFixed(3)}ms)`;
 
       return [
-        `-- Day ${day} --              (${totalDuration}ms)`,
-        `  Part 1: ${result1.padEnd(15)} (${duration1}ms)`,
-        `  Part 2: ${result2.padEnd(15)} (${duration2}ms)`,
+        `-- Day ${day} --         ${totalDurationMs.padStart(10)}`,
+        `  Part 1: ${result1.padEnd(10)} ${duration1Ms.padStart(10)}`,
+        `  Part 2: ${result2.padEnd(10)} ${duration2Ms.padStart(10)}`,
         ``,
       ].join("\n");
     } catch {
@@ -150,5 +155,11 @@ export const runAll = async (): Promise<string> => {
     }
   });
 
-  return results.filter((r) => r).join("\n");
+  const durationAllMs = `(${durationAll.toFixed(3)}ms)`;
+
+  return [
+    results.filter((r) => r).join("\n"),
+    `-- Total --- ${" ".padEnd(7)} ${durationAllMs.padStart(10)}`,
+    "",
+  ].join("\n");
 };
