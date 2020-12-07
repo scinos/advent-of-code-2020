@@ -2,7 +2,7 @@ import { strict as assert } from "assert";
 import { part1, part2 } from ".";
 import { readInput } from "../lib/readInput";
 
-describe.only("Day 7", () => {
+describe("Day 7", () => {
   const input = [
     "light red bags contain 1 bright white bag, 2 muted yellow bags.",
     "dark orange bags contain 3 bright white bags, 4 muted yellow bags.",
