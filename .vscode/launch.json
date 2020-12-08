@@ -12,7 +12,7 @@
       "program": "${workspaceFolder}/main.ts",
       "runtimeArgs": ["-r", "ts-node/register"],
       "skipFiles": ["<node_internals>/**"],
-      "args": ["16", "1"],
+      "args": ["--all"],
       "disableOptimisticBPs": false,
       "smartStep": true
     },
