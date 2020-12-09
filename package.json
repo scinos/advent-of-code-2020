@@ -4,11 +4,11 @@
   "description": "Solutions for Advent of Code 2020",
   "main": "main.ts",
   "scripts": {
-    "test:unit": "mocha --require ts-node/register --extension .ts --watch-files src,inputs",
+    "test:unit": "mocha --require ts-node/register/transpile-only --extension .ts --watch-files src,inputs",
     "test:types": "tsc --noEmit",
     "test:lint": "eslint .",
     "test": "yarn run test:lint && yarn run test:types && yarn run test:unit",
-    "solve": "node -r ts-node/register -- main.ts",
+    "solve": "node -r ts-node/register/transpile-only -- main.ts",
     "build": "tsc"
   },
   "author": "Sergio Cinos <sergio.cinos@gmail.com>",
