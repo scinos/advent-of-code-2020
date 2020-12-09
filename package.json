@@ -8,7 +8,8 @@
     "test:types": "tsc --noEmit",
     "test:lint": "eslint .",
     "test": "yarn run test:lint && yarn run test:types && yarn run test:unit",
-    "solve": "node -r ts-node/register -- main.ts"
+    "solve": "node -r ts-node/register -- main.ts",
+    "build": "tsc"
   },
   "author": "Sergio Cinos <sergio.cinos@gmail.com>",
   "license": "ISC",

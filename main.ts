@@ -22,6 +22,11 @@ const main = async (): Promise<string> => {
         describe: "part of the day to run",
         coerce: (v: number): Part => String(v) as Part,
       },
+      input: {
+        describe: "dir with input files",
+        default: "./inputs",
+        type: "string",
+      },
     })
     .check((args) => {
       if (!args.day && !args.all) {
@@ -34,10 +39,10 @@ const main = async (): Promise<string> => {
     }).argv;
 
   if (args.day && args.part) {
-    return run({ day: args.day, part: args.part });
+    return run({ day: args.day, part: args.part, input: args.input });
   }
   if (args.all) {
-    return runAll();
+    return runAll({ input: args.input });
   }
   throw new Error("Unknown error pargin args");
 };

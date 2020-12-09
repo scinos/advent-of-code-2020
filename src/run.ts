@@ -1,4 +1,5 @@
 import { promises as fs, readFileSync } from "fs";
+import { join } from "path";
 
 // Explicit imports for easier static analysis
 import * as solverDay01 from "./01";
@@ -59,6 +60,7 @@ export type Solvers = Record<Day, Record<Part, Solver>>;
 export interface Arguments {
   day: Day;
   part: Part;
+  input: string;
 }
 
 const solvers: Solvers = {
@@ -90,9 +92,9 @@ const solvers: Solvers = {
 };
 
 export const run = async (args: Arguments): Promise<string> => {
-  const { day, part } = args;
+  const { day, part, input: inputDir } = args;
   const solver = solvers[day][part];
-  const input = await fs.readFile(`./inputs/${day}.txt`, "utf-8");
+  const input = await fs.readFile(join(inputDir, `${day}.txt`), "utf-8");
   const lines = input.split("\n");
   return solver(lines);
 };
@@ -107,13 +109,19 @@ const measure = (fn: () => string): { duration: number; result: string } => {
   };
 };
 
-export const runAll = async (): Promise<string> => {
+export const runAll = async ({
+  input: inputDir,
+}: {
+  input: string;
+}): Promise<string> => {
   const inputs = (Object.keys(solvers) as Day[]).reduce<Record<Day, string[]>>(
     (acc, day) => {
       try {
         return {
           ...acc,
-          [day]: readFileSync(`./inputs/${day}.txt`, "utf-8").split("\n"),
+          [day]: readFileSync(join(inputDir, `${day}.txt`), "utf-8").split(
+            "\n"
+          ),
         };
       } catch {
         return acc;
