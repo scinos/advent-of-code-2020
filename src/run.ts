@@ -135,7 +135,7 @@ export const runAll = async ({
   const results = (Object.entries(solvers) as [
     Day,
     Record<Part, Solver>
-  ][]).map(([day, solver]) => {
+  ][]).reduce((output, [day, solver]) => {
     const input = inputs[day];
 
     try {
@@ -152,22 +152,22 @@ export const runAll = async ({
       const duration2Ms = `(${duration2.toFixed(3)}ms)`;
       const totalDurationMs = `(${totalDuration.toFixed(3)}ms)`;
 
-      return [
-        `-- Day ${day} --         ${totalDurationMs.padStart(10)}`,
-        `  Part 1: ${result1.padEnd(10)} ${duration1Ms.padStart(10)}`,
-        `  Part 2: ${result2.padEnd(10)} ${duration2Ms.padStart(10)}`,
+      // eslint-disable-next-line no-param-reassign
+      output[Number(day)] = [
+        `${`-- Day ${day} --`.padEnd(25)} ${totalDurationMs.padStart(10)}`,
+        `${`  Part 1: ${result1}`.padEnd(25)} ${duration1Ms.padStart(10)}`,
+        `${`  Part 2: ${result2}`.padEnd(25)} ${duration2Ms.padStart(10)}`,
         ``,
       ].join("\n");
-    } catch {
-      return null;
-    }
-  });
-
+      // eslint-disable-next-line no-empty
+    } catch {}
+    return output;
+  }, []);
   const durationAllMs = `(${durationAll.toFixed(3)}ms)`;
 
   return [
-    results.filter((r) => r).join("\n"),
-    `-- Total --- ${" ".padEnd(7)} ${durationAllMs.padStart(10)}`,
+    results.join("\n"),
+    `${"-- Total ---".padEnd(25)} ${durationAllMs.padStart(10)}`,
     "",
   ].join("\n");
 };
