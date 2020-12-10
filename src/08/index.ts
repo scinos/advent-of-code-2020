@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { Solver } from "../run";
 
 const run = (program: string[]) => {
@@ -11,7 +10,6 @@ const run = (program: string[]) => {
 
   while (pointer < program.length) {
     if (counter[pointer] >= 1) {
-      // eslint-disable-next-line no-throw-literal
       throw { acc, jmpNop };
     }
     counter[pointer]++;
@@ -30,6 +28,8 @@ const run = (program: string[]) => {
         jmpNop.push(pointer);
         pointer++;
         break;
+      default:
+        throw new Error("Unknown instruction");
     }
   }
 

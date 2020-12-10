@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint no-console: "off" */
 
 import * as yargs from "yargs";
 

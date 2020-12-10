@@ -17,21 +17,20 @@ export const part1: Solver = (input) => {
 
 export const part2: Solver = (input) => {
   const adapters = [...input.map(Number).sort((a, b) => b - a), 0];
-  const max = adapters[0];
-
   const subtrees: Map<number, number> = new Map();
 
   // Only one "adapter" (the device) can be plug into the largest adapter
-  subtrees.set(max, 1);
+  subtrees.set(adapters[0], 1);
 
   // For each adapter, find how many adapters can plug into it
   for (let i = 1; i < adapters.length; i++) {
     const adapter = adapters[i];
-    let subtotal = 0;
-    for (let h = 1; h <= 3; h++) {
-      subtotal += subtrees.get(adapter + h) ?? 0;
-    }
-    subtrees.set(adapter, subtotal);
+    subtrees.set(
+      adapter,
+      (subtrees.get(adapter + 1) ?? 0) +
+        (subtrees.get(adapter + 2) ?? 0) +
+        (subtrees.get(adapter + 3) ?? 0)
+    );
   }
 
   return String(subtrees.get(0));

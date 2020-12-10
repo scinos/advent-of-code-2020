@@ -6,9 +6,12 @@ module.exports = {
   },
   extends: [
     "airbnb-base",
+
     "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
+
     "plugin:prettier/recommended",
+    "prettier/@typescript-eslint",
+
     "plugin:mocha/recommended",
   ],
   parserOptions: {
@@ -18,18 +21,17 @@ module.exports = {
   plugins: ["mocha"],
   rules: {
     "import/extensions": ["error", "never"],
-    "import/prefer-default-export": "off",
+    "mocha/no-mocha-arrows": "off",
     "no-case-declarations": "off",
+    "no-console": "off",
+    "no-constant-condition": "off",
+    "no-continue": "off",
+    "no-empty": "off",
+    "no-param-reassign": "off",
     "no-plusplus": "off",
     "no-restricted-syntax": "off",
     "no-shadow": "off",
-    "mocha/no-mocha-arrows": "off",
-    "class-methods-use-this": "off",
-    "no-continue": "off",
-    "func-names": "off",
-    "default-case": "off",
-    "max-classes-per-file": "off",
-    "no-bitwise": "off",
+    "no-throw-literal": "off",
   },
   settings: {
     "import/resolver": {
