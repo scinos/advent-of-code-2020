@@ -22,6 +22,7 @@ module.exports = {
   rules: {
     "import/extensions": ["error", "never"],
     "mocha/no-mocha-arrows": "off",
+    "no-bitwise": "off",
     "no-case-declarations": "off",
     "no-console": "off",
     "no-constant-condition": "off",
