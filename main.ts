@@ -15,7 +15,7 @@ const main = async (): Promise<string> => {
       },
       day: {
         describe: "day to run",
-        coerce: (v: string): Day => v.padStart(2, "0") as Day,
+        coerce: (v: string): Day => String(v).padStart(2, "0") as Day,
       },
       part: {
         describe: "part of the day to run",

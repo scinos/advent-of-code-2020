@@ -5,16 +5,32 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
+      "type": "pwa-node",
       "request": "launch",
       "name": "Launch Program",
-      "runtimeVersion": "13.7.0",
+      "runtimeVersion": "15.3.0",
       "program": "${workspaceFolder}/main.ts",
       "runtimeArgs": ["-r", "ts-node/register"],
       "skipFiles": ["<node_internals>/**"],
       "args": ["--all"],
-      "disableOptimisticBPs": false,
+      // "disableOptimisticBPs": false,
       "smartStep": true
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "Launch Compiled Program",
+      "runtimeVersion": "15.3.0",
+      "program": "${workspaceFolder}/dist/main.js",
+      "skipFiles": ["<node_internals>/**"],
+      "args": [
+        "--day",
+        "11",
+        "--part",
+        "1",
+        "--input",
+        "${workspaceFolder}/inputs"
+      ]
     },
     {
       "type": "node",

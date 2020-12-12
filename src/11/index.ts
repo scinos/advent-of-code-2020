@@ -14,28 +14,29 @@ const adjacentSeatsStrategy: NeighbourStrategy = (
   columnSize,
   idx
 ) => {
-  const y = Math.floor(idx / rowSize);
-  const x = idx % rowSize;
-  const seats: number[] = [
-    // TODO Figure out the math for this without having to convert to x,y coords
-    [y - 1, x - 1],
-    [y - 1, x],
-    [y - 1, x + 1],
-    [y + 1, x - 1],
-    [y + 1, x],
-    [y + 1, x + 1],
-    [y, x - 1],
-    [y, x + 1],
-  ]
-    .filter(
-      ([y, x]) =>
-        x >= 0 &&
-        x < rowSize &&
-        y >= 0 &&
-        y < columnSize &&
-        world[y * rowSize + x] === "L"
-    )
-    .map(([y, x]) => y * rowSize + x);
+  const mod = idx % rowSize;
+  const seats: number[] = [];
+
+  const canMoveUp = idx - rowSize >= 0;
+  const canMoveDown = idx + rowSize < world.length;
+  const canMoveLeft = idx - 1 >= 0 && (idx - 1) % rowSize < mod;
+  const canMoveRight = idx + 1 < world.length && (idx + 1) % rowSize > mod;
+
+  if (canMoveLeft && world[idx - 1] === "L") seats.push(idx - 1);
+  if (canMoveRight && world[idx + 1] === "L") seats.push(idx + 1);
+
+  if (canMoveUp) {
+    const tempIdx = idx - rowSize;
+    if (world[tempIdx] === "L") seats.push(tempIdx);
+    if (canMoveLeft && world[tempIdx - 1] === "L") seats.push(tempIdx - 1);
+    if (canMoveRight && world[tempIdx + 1] === "L") seats.push(tempIdx + 1);
+  }
+  if (canMoveDown) {
+    const tempIdx = idx + rowSize;
+    if (world[tempIdx] === "L") seats.push(tempIdx);
+    if (canMoveLeft && world[tempIdx - 1] === "L") seats.push(tempIdx - 1);
+    if (canMoveRight && world[tempIdx + 1] === "L") seats.push(tempIdx + 1);
+  }
 
   return seats;
 };
