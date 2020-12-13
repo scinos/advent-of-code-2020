@@ -33,6 +33,7 @@ module.exports = {
     "no-restricted-syntax": "off",
     "no-shadow": "off",
     "no-throw-literal": "off",
+    "default-case": "off",
   },
   settings: {
     "import/resolver": {
