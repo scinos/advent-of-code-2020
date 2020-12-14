@@ -35,7 +35,7 @@ export const part1: Solver = (input) => {
 };
 
 export const part2: Solver = (input) => {
-  const mem: number[] = [];
+  const mem = new Map<number, number>();
   let mask: string[] = [];
   const maskRe = /^mask = (?<mask>.*)$/;
   const memRe = /^mem\[(?<address>\d+)\] = (?<value>\d+)$/;
@@ -44,7 +44,7 @@ export const part2: Solver = (input) => {
   for (let i = 0; i < input.length; i++) {
     const match = input[i].match(maskRe);
     if (match) {
-      mask = match.groups.mask.split("").concat();
+      mask = match.groups.mask.split("");
     } else {
       const { address: addressRaw, value: valRaw } = input[i].match(
         memRe
@@ -65,7 +65,6 @@ export const part2: Solver = (input) => {
         if (x === -1) {
           break;
         }
-
         const address1 = [...mask];
         address1[x] = "0";
         const address2 = [...mask];
@@ -79,10 +78,10 @@ export const part2: Solver = (input) => {
       const val = Number(valRaw);
       for (const binaryAddress of addresses) {
         const address = parseInt(binaryAddress.join(""), 2);
-        if (mem[address]) {
-          sum -= mem[address];
+        if (mem.has(address)) {
+          sum -= mem.get(address);
         }
-        mem[address] = val;
+        mem.set(address, val);
         sum += val;
       }
     }
