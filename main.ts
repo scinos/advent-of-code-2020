@@ -5,7 +5,7 @@ import * as yargs from "yargs";
 import { run, runAll } from "./src/run";
 import type { Day, Part } from "./src/run";
 
-const main = async (): Promise<string> => {
+const main = (): void => {
   const args = yargs
     .usage("$0 --day [day] --part [part]\nor\n$0 --all\n")
     .options({
@@ -38,12 +38,15 @@ const main = async (): Promise<string> => {
     }).argv;
 
   if (args.day && args.part) {
-    return run({ day: args.day, part: args.part, input: args.input });
+    console.log(run({ day: args.day, part: args.part, input: args.input }));
   }
+
   if (args.all) {
-    return runAll({ input: args.input });
+    let line;
+    for (line of runAll(args.input)) {
+      console.log(line);
+    }
   }
-  throw new Error("Unknown error pargin args");
 };
 
-main().then(console.log).catch(console.error);
+main();

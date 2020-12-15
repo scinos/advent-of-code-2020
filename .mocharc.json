@@ -1,5 +1,6 @@
 {
     "spec": "./src/**/test.ts",
     "reporter": "spec",
-    "slow": "-1"
+    "slow": "-1",
+    "timeout": 60000
 }

@@ -10,7 +10,7 @@
       "name": "Launch Program",
       "runtimeVersion": "15.3.0",
       "program": "${workspaceFolder}/main.ts",
-      "runtimeArgs": ["-r", "ts-node/register"],
+      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
       "skipFiles": ["<node_internals>/**"],
       "args": ["--all"],
       // "disableOptimisticBPs": false,

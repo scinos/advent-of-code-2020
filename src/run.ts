@@ -56,7 +56,7 @@ export type Day =
   | "24"
   | "25";
 export type Part = "1" | "2";
-export type Solvers = Record<Day, Record<Part, Solver>>;
+export type Solvers = Record<string, Record<Part, Solver>>;
 export interface Arguments {
   day: Day;
   part: Part;
@@ -109,11 +109,7 @@ const measure = (fn: () => string): { duration: number; result: string } => {
   };
 };
 
-export const runAll = async ({
-  input: inputDir,
-}: {
-  input: string;
-}): Promise<string> => {
+export function* runAll(inputDir: string): Generator<string, void, void> {
   const inputs = (Object.keys(solvers) as Day[]).reduce<Record<Day, string[]>>(
     (acc, day) => {
       try {
@@ -132,40 +128,29 @@ export const runAll = async ({
 
   let durationAll = 0;
 
-  const results = (Object.entries(solvers) as [
-    Day,
-    Record<Part, Solver>
-  ][]).reduce((output, [day, solver]) => {
+  for (const [day, solver] of Object.entries(solvers).sort(
+    ([day1], [day2]) => Number(day1) - Number(day2)
+  ) as [Day, Record<Part, Solver>][]) {
     const input = inputs[day];
 
     try {
       const { duration: duration1, result: result1 } = measure(() =>
         solver["1"](input)
       );
+      yield `2020 Day ${day} Part 1: ${result1.padStart(
+        20
+      )} [${duration1.toFixed(3).padStart(10)}ms]`;
+
       const { duration: duration2, result: result2 } = measure(() =>
         solver["2"](input)
       );
-      const totalDuration = duration1 + duration2;
-      durationAll += totalDuration;
+      yield `2020 Day ${day} Part 2: ${result2.padStart(
+        20
+      )} [${duration2.toFixed(3).padStart(10)}ms]`;
 
-      const duration1Ms = `(${duration1.toFixed(3)}ms)`;
-      const duration2Ms = `(${duration2.toFixed(3)}ms)`;
-      const totalDurationMs = `(${totalDuration.toFixed(3)}ms)`;
-
-      output[Number(day)] = [
-        `${`-- Day ${day} --`.padEnd(25)} ${totalDurationMs.padStart(10)}`,
-        `${`  Part 1: ${result1}`.padEnd(25)} ${duration1Ms.padStart(10)}`,
-        `${`  Part 2: ${result2}`.padEnd(25)} ${duration2Ms.padStart(10)}`,
-        ``,
-      ].join("\n");
+      durationAll += duration1 + duration2;
     } catch {}
-    return output;
-  }, []);
-  const durationAllMs = `(${durationAll.toFixed(3)}ms)`;
+  }
 
-  return [
-    results.join("\n"),
-    `${"-- Total ---".padEnd(25)} ${durationAllMs.padStart(10)}`,
-    "",
-  ].join("\n");
-};
+  yield `${`Total time:`.padEnd(44)}${durationAll.toFixed(3)}ms`;
+}
