@@ -1,4 +1,4 @@
-import { promises as fs, readFileSync } from "fs";
+import { readFileSync } from "fs";
 import { join } from "path";
 
 // Explicit imports for easier static analysis
@@ -29,75 +29,38 @@ import * as solverDay24 from "./24";
 import * as solverDay25 from "./25";
 
 export type Solver = (lines: string[]) => string;
-export type Day =
-  | "01"
-  | "02"
-  | "03"
-  | "04"
-  | "05"
-  | "06"
-  | "07"
-  | "08"
-  | "09"
-  | "10"
-  | "11"
-  | "12"
-  | "13"
-  | "14"
-  | "15"
-  | "16"
-  | "17"
-  | "18"
-  | "19"
-  | "20"
-  | "21"
-  | "22"
-  | "23"
-  | "24"
-  | "25";
-export type Part = "1" | "2";
-export type Solvers = Record<string, Record<Part, Solver>>;
 export interface Arguments {
-  day: Day;
-  part: Part;
+  day: number;
   input: string;
 }
 
-const solvers: Solvers = {
-  "01": { "1": solverDay01.part1, "2": solverDay01.part2 },
-  "02": { "1": solverDay02.part1, "2": solverDay02.part2 },
-  "03": { "1": solverDay03.part1, "2": solverDay03.part2 },
-  "04": { "1": solverDay04.part1, "2": solverDay04.part2 },
-  "05": { "1": solverDay05.part1, "2": solverDay05.part2 },
-  "06": { "1": solverDay06.part1, "2": solverDay06.part2 },
-  "07": { "1": solverDay07.part1, "2": solverDay07.part2 },
-  "08": { "1": solverDay08.part1, "2": solverDay08.part2 },
-  "09": { "1": solverDay09.part1, "2": solverDay09.part2 },
-  "10": { "1": solverDay10.part1, "2": solverDay10.part2 },
-  "11": { "1": solverDay11.part1, "2": solverDay11.part2 },
-  "12": { "1": solverDay12.part1, "2": solverDay12.part2 },
-  "13": { "1": solverDay13.part1, "2": solverDay13.part2 },
-  "14": { "1": solverDay14.part1, "2": solverDay14.part2 },
-  "15": { "1": solverDay15.part1, "2": solverDay15.part2 },
-  "16": { "1": solverDay16.part1, "2": solverDay16.part2 },
-  "17": { "1": solverDay17.part1, "2": solverDay17.part2 },
-  "18": { "1": solverDay18.part1, "2": solverDay18.part2 },
-  "19": { "1": solverDay19.part1, "2": solverDay19.part2 },
-  "20": { "1": solverDay20.part1, "2": solverDay20.part2 },
-  "21": { "1": solverDay21.part1, "2": solverDay21.part2 },
-  "22": { "1": solverDay22.part1, "2": solverDay22.part2 },
-  "23": { "1": solverDay23.part1, "2": solverDay23.part2 },
-  "24": { "1": solverDay24.part1, "2": solverDay24.part2 },
-  "25": { "1": solverDay25.part1, "2": solverDay25.part2 },
-};
-
-export const run = async (args: Arguments): Promise<string> => {
-  const { day, part, input: inputDir } = args;
-  const solver = solvers[day][part];
-  const input = await fs.readFile(join(inputDir, `${day}.txt`), "utf-8");
-  const lines = input.split("\n");
-  return solver(lines);
-};
+const solvers: { day: number; part1: Solver; part2: Solver }[] = [
+  { day: 1, part1: solverDay01.part1, part2: solverDay01.part2 },
+  { day: 2, part1: solverDay02.part1, part2: solverDay02.part2 },
+  { day: 3, part1: solverDay03.part1, part2: solverDay03.part2 },
+  { day: 4, part1: solverDay04.part1, part2: solverDay04.part2 },
+  { day: 5, part1: solverDay05.part1, part2: solverDay05.part2 },
+  { day: 6, part1: solverDay06.part1, part2: solverDay06.part2 },
+  { day: 7, part1: solverDay07.part1, part2: solverDay07.part2 },
+  { day: 8, part1: solverDay08.part1, part2: solverDay08.part2 },
+  { day: 9, part1: solverDay09.part1, part2: solverDay09.part2 },
+  { day: 10, part1: solverDay10.part1, part2: solverDay10.part2 },
+  { day: 11, part1: solverDay11.part1, part2: solverDay11.part2 },
+  { day: 12, part1: solverDay12.part1, part2: solverDay12.part2 },
+  { day: 13, part1: solverDay13.part1, part2: solverDay13.part2 },
+  { day: 14, part1: solverDay14.part1, part2: solverDay14.part2 },
+  { day: 15, part1: solverDay15.part1, part2: solverDay15.part2 },
+  { day: 16, part1: solverDay16.part1, part2: solverDay16.part2 },
+  { day: 17, part1: solverDay17.part1, part2: solverDay17.part2 },
+  { day: 18, part1: solverDay18.part1, part2: solverDay18.part2 },
+  { day: 19, part1: solverDay19.part1, part2: solverDay19.part2 },
+  { day: 20, part1: solverDay20.part1, part2: solverDay20.part2 },
+  { day: 21, part1: solverDay21.part1, part2: solverDay21.part2 },
+  { day: 22, part1: solverDay22.part1, part2: solverDay22.part2 },
+  { day: 23, part1: solverDay23.part1, part2: solverDay23.part2 },
+  { day: 24, part1: solverDay24.part1, part2: solverDay24.part2 },
+  { day: 25, part1: solverDay25.part1, part2: solverDay25.part2 },
+];
 
 const measure = (fn: () => string): { duration: number; result: string } => {
   const start = process.hrtime.bigint();
@@ -109,46 +72,42 @@ const measure = (fn: () => string): { duration: number; result: string } => {
   };
 };
 
-export function* runAll(inputDir: string): Generator<string, void, void> {
-  const inputs = (Object.keys(solvers) as Day[]).reduce<Record<Day, string[]>>(
-    (acc, day) => {
-      try {
-        return {
-          ...acc,
-          [day]: readFileSync(join(inputDir, `${day}.txt`), "utf-8").split(
-            "\n"
-          ),
-        };
-      } catch {
-        return acc;
-      }
-    },
-    {} as Record<Day, string[]>
-  );
+export function* run(args: Arguments): Generator<string, void, void> {
+  const filteredSolvers = args.day
+    ? solvers.filter(({ day }) => day === args.day)
+    : solvers;
+
+  const inputs = filteredSolvers.map(({ day }) => {
+    try {
+      const file = `${day.toString().padStart(2, "0")}.txt`;
+      const result = readFileSync(join(args.input, file), "utf-8");
+      return result.split("\n");
+    } catch {
+      return [""];
+    }
+  });
 
   let durationAll = 0;
-
-  for (const [day, solver] of Object.entries(solvers).sort(
-    ([day1], [day2]) => Number(day1) - Number(day2)
-  ) as [Day, Record<Part, Solver>][]) {
-    const input = inputs[day];
+  for (let i = 0; i < filteredSolvers.length; i++) {
+    const { day, part1, part2 } = filteredSolvers[i];
+    const input = inputs[i];
 
     try {
-      const { duration: duration1, result: result1 } = measure(() =>
-        solver["1"](input)
-      );
-      yield `2020 Day ${day} Part 1: ${result1.padStart(
-        20
-      )} [${duration1.toFixed(3).padStart(10)}ms]`;
+      const { duration: dur1, result: res1 } = measure(() => part1(input));
+      yield `2020 Day ${day
+        .toString()
+        .padStart(2, "0")} Part 1: ${res1.padStart(20)} [${dur1
+        .toFixed(3)
+        .padStart(10)}ms]`;
 
-      const { duration: duration2, result: result2 } = measure(() =>
-        solver["2"](input)
-      );
-      yield `2020 Day ${day} Part 2: ${result2.padStart(
-        20
-      )} [${duration2.toFixed(3).padStart(10)}ms]`;
+      const { duration: dur2, result: res2 } = measure(() => part2(input));
+      yield `2020 Day ${day
+        .toString()
+        .padStart(2, "0")} Part 2: ${res2.padStart(20)} [${dur2
+        .toFixed(3)
+        .padStart(10)}ms]`;
 
-      durationAll += duration1 + duration2;
+      durationAll += dur1 + dur2;
     } catch {}
   }
 
