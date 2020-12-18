@@ -1,5 +1,3 @@
-/* eslint-disable no-labels */
-/* eslint-disable no-loop-func */
 import { Solver } from "../run";
 
 const { getNeighborCoords, resetNeighborCoords } = (() => {

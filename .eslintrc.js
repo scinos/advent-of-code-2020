@@ -22,18 +22,19 @@ module.exports = {
   rules: {
     "import/extensions": ["error", "never"],
     "mocha/no-mocha-arrows": "off",
+    "default-case": "off",
     "no-bitwise": "off",
     "no-case-declarations": "off",
     "no-console": "off",
     "no-constant-condition": "off",
     "no-continue": "off",
     "no-empty": "off",
+    "no-loop-func": "off",
     "no-param-reassign": "off",
     "no-plusplus": "off",
     "no-restricted-syntax": "off",
     "no-shadow": "off",
     "no-throw-literal": "off",
-    "default-case": "off",
   },
   settings: {
     "import/resolver": {
