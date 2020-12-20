@@ -2,7 +2,7 @@ import { strict as assert } from "assert";
 import { part1, part2 } from ".";
 import { readInput } from "../lib/readInput";
 
-describe.only("Day 20", () => {
+describe("Day 20", () => {
   const input = [
     "Tile 2311:",
     "..##.#..#.",
