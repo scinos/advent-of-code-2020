@@ -96,14 +96,14 @@ export function* run(args: Arguments): Generator<string, void, void> {
       const { duration: dur1, result: res1 } = measure(() => part1(input));
       yield `2020 Day ${day
         .toString()
-        .padStart(2, "0")} Part 1: ${res1.padStart(20)} [${dur1
+        .padStart(2, "0")} Part 1: ${res1.padStart(50)} [${dur1
         .toFixed(3)
         .padStart(10)}ms]`;
 
       const { duration: dur2, result: res2 } = measure(() => part2(input));
       yield `2020 Day ${day
         .toString()
-        .padStart(2, "0")} Part 2: ${res2.padStart(20)} [${dur2
+        .padStart(2, "0")} Part 2: ${res2.padStart(50)} [${dur2
         .toFixed(3)
         .padStart(10)}ms]`;
 
@@ -111,5 +111,5 @@ export function* run(args: Arguments): Generator<string, void, void> {
     } catch {}
   }
 
-  yield `${`Total time:`.padEnd(44)}${durationAll.toFixed(3)}ms`;
+  yield `Total time: ${`${durationAll.toFixed(3)}ms`}.padEnd(44)}`;
 }
