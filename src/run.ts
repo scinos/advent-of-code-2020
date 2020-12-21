@@ -111,5 +111,5 @@ export function* run(args: Arguments): Generator<string, void, void> {
     } catch {}
   }
 
-  yield `Total time: ${`${durationAll.toFixed(3)}ms`}.padEnd(44)}`;
+  yield `Total time: ${`${durationAll.toFixed(3)}ms`.padEnd(44)}`;
 }
