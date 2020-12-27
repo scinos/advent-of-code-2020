@@ -31,8 +31,8 @@ const play = (players: number[][], recursive: boolean): number => {
       }
     }
 
-    const card1 = players[0].shift();
-    const card2 = players[1].shift();
+    const card1 = players[0].shift()!;
+    const card2 = players[1].shift()!;
 
     // Determine round winner
     let roundWinner;

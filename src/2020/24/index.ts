@@ -37,7 +37,7 @@ const parseTiles = (
       }
     }
     if (!tiles.has(q)) tiles.set(q, new Map());
-    tiles.get(q).set(r, tiles.get(q).get(r) !== true);
+    tiles.get(q)!.set(r, tiles.get(q)!.get(r) !== true);
 
     maxQ = Math.max(maxQ, q);
     minQ = Math.min(minQ, q);

@@ -6,7 +6,7 @@ export const part1: Solver = (lines) => {
   let valid = 0;
 
   for (const line of lines) {
-    const { min, max, character, pass } = line.match(re).groups;
+    const { min, max, character, pass } = line.match(re)?.groups ?? {};
     const repeats = pass.split("").filter((c) => c === character).length;
     if (repeats <= Number(max) && repeats >= Number(min)) valid++;
   }
@@ -18,7 +18,7 @@ export const part2: Solver = (lines) => {
   let valid = 0;
 
   for (const line of lines) {
-    const { min, max, character, pass } = line.match(re).groups;
+    const { min, max, character, pass } = line.match(re)?.groups ?? {};
     const c1 = pass[Number(min) - 1];
     const c2 = pass[Number(max) - 1];
 

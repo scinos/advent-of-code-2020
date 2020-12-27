@@ -29,11 +29,11 @@ describe("Day 22", () => {
 
   describe("Solutions", () => {
     it("Part 1", async () => {
-      const input = await readInput("22");
+      const input = await readInput("2020/22");
       assert.equal(part1(input), "33421");
     });
     it("Part 2", async () => {
-      const input = await readInput("22");
+      const input = await readInput("2020/22");
       assert.equal(part2(input), "33651");
     });
   });

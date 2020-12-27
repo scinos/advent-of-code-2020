@@ -9,7 +9,7 @@ const { getNeighborCoords, resetNeighborCoords } = (() => {
 
   const getNeighborCoords = (originalCoord: string): string[] => {
     if (memoCoord.has(originalCoord)) {
-      return memoCoord.get(originalCoord);
+      return memoCoord.get(originalCoord)!;
     }
 
     const expandedCoords = originalCoord.split(",").map(Number);
@@ -134,7 +134,7 @@ const { getNeighborCoords, resetNeighborCoords } = (() => {
 
     const coords: number[][] = [[]];
     while (coords.length) {
-      const temporalCoord = coords.shift();
+      const temporalCoord = coords.shift()!;
       // Due the order of insertion in `coords`, th first coord with the same length is equal to expandedCoords, which
       // we want to skip. So we don't put it back to the array.
       if (temporalCoord.length === expandedCoords.length) break;

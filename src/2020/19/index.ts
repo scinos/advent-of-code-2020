@@ -6,10 +6,10 @@ const buildLinker = (rules: Map<string, string>, alt: boolean): Linker => {
   const cache: Map<string, string> = new Map();
   const linker: Linker = (id) => {
     if (cache.has(id)) {
-      return cache.get(id);
+      return cache.get(id)!;
     }
 
-    const rule = rules.get(id);
+    const rule = rules.get(id)!;
     let result;
 
     if (alt && id === "11") {

@@ -47,7 +47,7 @@ export const part2: Solver = (input) => {
   let t = 1;
   let aggregatedLCM = 1;
   while (buses.length) {
-    const { offset, frequency } = buses.shift();
+    const { offset, frequency } = buses.shift()!;
     while ((t + offset) % frequency !== 0) {
       t += aggregatedLCM;
     }

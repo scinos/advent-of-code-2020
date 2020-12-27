@@ -13,7 +13,7 @@ export const part1: Solver = (input) => {
   const ingredients: Map<Ingredient, number> = new Map();
 
   for (const line of input) {
-    const { rawIngredients, rawAllergens } = line.match(re).groups;
+    const { rawIngredients, rawAllergens } = line.match(re)!.groups!;
     const ingredientsList = rawIngredients.split(" ");
     const allergensList = rawAllergens.split(", ");
 
@@ -27,7 +27,7 @@ export const part1: Solver = (input) => {
       } else {
         allergens.set(
           allergen,
-          intersect(allergens.get(allergen), ingredientsList)
+          intersect(allergens.get(allergen)!, ingredientsList)
         );
       }
     }
@@ -51,7 +51,7 @@ export const part2: Solver = (input) => {
 
   const allergens: Map<Allergen, Ingredient[]> = new Map();
   for (const line of input) {
-    const { rawIngredients, rawAllergens } = line.match(re).groups;
+    const { rawIngredients, rawAllergens } = line.match(re)!.groups!;
     const ingredientsList = rawIngredients.split(" ");
     const allergensList = rawAllergens.split(", ");
 
@@ -61,7 +61,7 @@ export const part2: Solver = (input) => {
       } else {
         allergens.set(
           allergen,
-          intersect(allergens.get(allergen), ingredientsList)
+          intersect(allergens.get(allergen)!, ingredientsList)
         );
       }
     }
@@ -70,7 +70,7 @@ export const part2: Solver = (input) => {
   const canonicalList: Map<Ingredient, Allergen> = new Map();
   const candidates = Array.from(allergens.entries());
   while (candidates.length) {
-    const [allergen, ingredients] = candidates.shift();
+    const [allergen, ingredients] = candidates.shift()!;
     if (ingredients.length === 1) {
       canonicalList.set(ingredients[0], allergen);
     } else {

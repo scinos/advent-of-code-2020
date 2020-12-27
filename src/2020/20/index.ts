@@ -30,7 +30,7 @@ class Tile {
 
   lines: string[][];
 
-  borders: string[];
+  borders!: string[];
 
   constructor(id: string, lines: string[][]) {
     this.id = id;
@@ -82,10 +82,10 @@ const findMatchingTile = (
   x: number,
   y: number,
   tiles: TileGroup[]
-): Tile => {
+): Tile | null => {
   const tilesLeft = [...tiles];
   while (tilesLeft.length) {
-    const tile = tilesLeft.pop();
+    const tile = tilesLeft.pop()!;
     for (const permutatedTile of tile.permutations) {
       if (y > 0 && map[y - 1][x]) {
         if (permutatedTile.borders[0] !== map[y - 1][x].borders[2]) continue;
@@ -112,7 +112,7 @@ const findMatchingTile = (
 const parseTiles = (input: string[]): TileGroup[] => {
   const tiles: TileGroup[] = [];
 
-  let currentId: string;
+  let currentId = "";
   let currentTile: string[][] = [];
   for (const line of input) {
     if (!line) continue;
@@ -124,7 +124,7 @@ const parseTiles = (input: string[]): TileGroup[] => {
         tiles.push(new TileGroup(currentId, currentTile));
         currentTile = [];
       }
-      currentId = match.groups.id;
+      currentId = match.groups!.id;
     } else {
       currentTile.push(line.split(""));
     }
@@ -199,7 +199,7 @@ export const part1: Solver = (input) => {
   let map;
 
   do {
-    const firstTile = candidatesToFirstTile.pop();
+    const firstTile = candidatesToFirstTile.pop()!;
     map = completeMap(firstTile, tiles);
     if (!map) continue;
   } while (!map && candidatesToFirstTile.length);
@@ -218,21 +218,21 @@ export const part2: Solver = (input) => {
   const tiles = parseTiles(input);
 
   // Get the map
-  let map;
+  let map: Tile[][] | null;
   const candidatesToFirstTile = [...tiles];
   do {
-    const firstTile = candidatesToFirstTile.pop();
+    const firstTile = candidatesToFirstTile.pop()!;
     map = completeMap(firstTile, tiles);
     if (!map) continue;
   } while (!map && candidatesToFirstTile.length);
 
   // Get a tile for the whole map
-  const mapWidth = map[0][0].lines.length - 2;
-  const imageWidth = map.length * mapWidth;
+  const mapWidth = map![0][0].lines.length - 2;
+  const imageWidth = map!.length * mapWidth;
   const image = new Array(imageWidth).fill(0).map(() => new Array(imageWidth));
   for (let y = 0; y < imageWidth; y++) {
     for (let x = 0; x < imageWidth; x++) {
-      const tile = map[Math.floor(y / mapWidth)][Math.floor(x / mapWidth)];
+      const tile = map![Math.floor(y / mapWidth)][Math.floor(x / mapWidth)];
       image[y][x] = tile.lines[(y % mapWidth) + 1][(x % mapWidth) + 1];
     }
   }
@@ -243,7 +243,7 @@ export const part2: Solver = (input) => {
     "                  # ",
     "#    ##    ##    ###",
     " #  #  #  #  #  #   ",
-  ].reduce((acc, line, y) => {
+  ].reduce((acc: number[][], line, y) => {
     return [
       ...acc,
       ...Object.entries(line.split(""))
@@ -253,19 +253,19 @@ export const part2: Solver = (input) => {
   }, []);
 
   // Find the permutationt that contains dragons
-  let dragonsFound;
-  let permutatedMap;
+  let dragonsFound: number;
+  let permutatedMap: Tile;
   for (permutatedMap of megaTile.permutations) {
     dragonsFound = countPattern(permutatedMap.lines, pattern);
-    if (dragonsFound) {
+    if (dragonsFound > 0) {
       break;
     }
   }
 
-  const imageTotal = permutatedMap.lines.reduce(
+  const imageTotal = permutatedMap!.lines.reduce(
     (acc, r) => acc + r.filter((c) => c === "#").length,
     0
   );
 
-  return String(imageTotal - pattern.length * dragonsFound);
+  return String(imageTotal - pattern.length * dragonsFound!);
 };

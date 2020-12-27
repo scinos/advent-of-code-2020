@@ -2,9 +2,9 @@
 import type { Solver } from "../../runner";
 
 class Cup {
-  next: Cup;
+  next!: Cup;
 
-  dest: Cup;
+  dest!: Cup;
 
   id: number;
 
@@ -38,7 +38,7 @@ export const solve = (
   // Link destinations
   for (let i = 0; i < linkedCups.length; i++) {
     const destId = linkedCups[i].id - 1;
-    linkedCups[i].dest = cupIndex.get(destId <= 0 ? maxCup : destId);
+    linkedCups[i].dest = cupIndex.get(destId <= 0 ? maxCup : destId)!;
   }
 
   let turn = 0;
@@ -68,7 +68,7 @@ export const part1: Solver = (input) => {
     100
   );
 
-  let firstCup = cupIndex.get(1);
+  let firstCup = cupIndex.get(1)!;
   const result = new Array(8).fill(0).reduce((acc) => {
     firstCup = firstCup.next;
     acc += `${firstCup.id}`;
@@ -83,6 +83,6 @@ export const part2: Solver = (input) => {
     1e6,
     1e7
   );
-  const firstCup = cupIndex.get(1);
+  const firstCup = cupIndex.get(1)!;
   return String(firstCup.next.id * firstCup.next.next.id);
 };

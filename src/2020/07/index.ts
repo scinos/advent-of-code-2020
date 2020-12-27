@@ -12,7 +12,7 @@ const getBag = (bags: Map<string, Bag>, name: string): Bag => {
       containedBy: new Set<Bag>(),
     });
   }
-  return bags.get(name);
+  return bags.get(name)!;
 };
 
 const generateBags = (input: string[]): Map<string, Bag> => {
@@ -21,13 +21,13 @@ const generateBags = (input: string[]): Map<string, Bag> => {
   const reContent = /(?<bagAmmount>\d) (?<bagColor>.*?) bags?(?:, |$)/g;
 
   for (const line of input) {
-    const { color, content } = line.match(reBag).groups;
+    const { color, content } = line.match(reBag)!.groups!;
     const bag: Bag = getBag(bags, color);
 
     if (content) {
-      for (const {
-        groups: { bagColor, bagAmmount },
-      } of content.matchAll(reContent)) {
+      for (const { groups } of content.matchAll(reContent)) {
+        const { bagColor, bagAmmount } = groups!;
+
         const subBag = getBag(bags, bagColor);
         subBag.containedBy.add(bag);
         bag.bags.set(subBag, Number(bagAmmount));
@@ -51,7 +51,7 @@ export const part1: Solver = (input) => {
       }
     }
   };
-  extractContainers(bags.get("shiny gold"));
+  extractContainers(bags.get("shiny gold")!);
 
   return String(containedBy.size);
 };
@@ -67,5 +67,5 @@ export const part2: Solver = (input) => {
     return total;
   };
 
-  return String(extractContainers(bags.get("shiny gold")) - 1);
+  return String(extractContainers(bags.get("shiny gold")!) - 1);
 };

@@ -11,11 +11,13 @@ export const part1: Solver = (input) => {
   for (let i = 0; i < input.length; i++) {
     const match = input[i].match(maskRe);
     if (match) {
-      mask = match.groups.mask.split("");
+      mask = match.groups!.mask.split("");
       continue;
     }
 
-    const { address: addressRaw, value: valRaw } = input[i].match(memRe).groups;
+    const { address: addressRaw, value: valRaw } = input[i].match(
+      memRe
+    )!.groups!;
 
     const valueBinary = Number(valRaw).toString(2).padStart(36, "0").split("");
     for (let i = 0; i < 36; i++) {
@@ -44,11 +46,11 @@ export const part2: Solver = (input) => {
   for (let i = 0; i < input.length; i++) {
     const match = input[i].match(maskRe);
     if (match) {
-      mask = match.groups.mask.split("");
+      mask = match.groups!.mask.split("");
     } else {
       const { address: addressRaw, value: valRaw } = input[i].match(
         memRe
-      ).groups;
+      )!.groups!;
 
       const addressBinary = Number(addressRaw)
         .toString(2)
@@ -79,7 +81,7 @@ export const part2: Solver = (input) => {
       for (const binaryAddress of addresses) {
         const address = parseInt(binaryAddress.join(""), 2);
         if (mem.has(address)) {
-          sum -= mem.get(address);
+          sum -= mem.get(address)!;
         }
         mem.set(address, val);
         sum += val;

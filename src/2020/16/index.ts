@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable prefer-destructuring */
 import { Solver } from "../../runner";
 
@@ -74,7 +75,7 @@ export const part2: Solver = (input) => {
 
   const finalFields: string[] = [];
   while (candidateFields.length) {
-    const { id, fields } = candidateFields.shift();
+    const { id, fields } = candidateFields.shift()!;
 
     if (fields.length === 1) {
       finalFields[id] = fields[0];

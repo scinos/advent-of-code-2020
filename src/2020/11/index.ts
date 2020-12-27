@@ -170,7 +170,7 @@ const solve = (
     // Go over all seats to be prcessed
     for (const num of toProcess.values()) {
       const seat = world[num];
-      const seats = relatedSeats.get(num);
+      const seats = relatedSeats.get(num)!;
 
       if (seat === "#") {
         // If a seat is occupied, check how many related seats are also occupied.

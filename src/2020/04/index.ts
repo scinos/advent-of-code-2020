@@ -31,7 +31,7 @@ const fieldsAreValid: Validator = (passport) => {
    * byr (Birth Year) - four digits; at least 1920 and at most 2002.
    */
   if (!("byr" in passport)) return false;
-  if (!passport.byr.match(/^\d{4}$/)) return false;
+  if (!passport.byr!.match(/^\d{4}$/)) return false;
   if (Number(passport.byr) < 1920) return false;
   if (Number(passport.byr) > 2002) return false;
 
@@ -39,7 +39,7 @@ const fieldsAreValid: Validator = (passport) => {
    * iyr (Issue Year) - four digits; at least 2010 and at most 2020.
    */
   if (!("iyr" in passport)) return false;
-  if (!passport.iyr.match(/^\d{4}$/)) return false;
+  if (!passport.iyr!.match(/^\d{4}$/)) return false;
   if (Number(passport.iyr) < 2010) return false;
   if (Number(passport.iyr) > 2020) return false;
 
@@ -47,7 +47,7 @@ const fieldsAreValid: Validator = (passport) => {
    * eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
    */
   if (!("eyr" in passport)) return false;
-  if (!passport.eyr.match(/^\d{4}$/)) return false;
+  if (!passport.eyr!.match(/^\d{4}$/)) return false;
   if (Number(passport.eyr) < 2020) return false;
   if (Number(passport.eyr) > 2030) return false;
 
@@ -58,9 +58,9 @@ const fieldsAreValid: Validator = (passport) => {
    */
   if (!("hgt" in passport)) return false;
   const hgtRe = /^(\d+)(cm|in)$/;
-  const hgtMatch = passport.hgt.match(hgtRe);
+  const hgtMatch = passport.hgt!.match(hgtRe);
   if (!hgtMatch) return false;
-  if (!passport.eyr.match(/^\d{4}$/)) return false;
+  if (!passport.eyr!.match(/^\d{4}$/)) return false;
   if (
     hgtMatch[2] === "cm" &&
     (Number(hgtMatch[1]) < 150 || Number(hgtMatch[1]) > 193)
@@ -97,7 +97,7 @@ const extractFields = (line: string): Passport => {
   const fieldMatcher = /(?<field>byr|iyr|eyr|hgt|hcl|ecl|pid|cid):(?<value>\S+)/g;
   const passport: Passport = {};
   for (const match of Array.from(line.matchAll(fieldMatcher))) {
-    const { field, value } = match.groups;
+    const { field, value } = match.groups!;
     passport[field as Field] = value;
   }
   return passport;

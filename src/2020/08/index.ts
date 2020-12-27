@@ -14,7 +14,7 @@ const run = (program: string[]) => {
     }
     counter[pointer]++;
 
-    const { ins, num } = program[pointer].match(re).groups;
+    const { ins, num } = program[pointer].match(re)!.groups!;
     switch (ins) {
       case "acc":
         acc += Number(num);
