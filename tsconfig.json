@@ -16,7 +16,6 @@
     "strict": true,
     "esModuleInterop": true,
     "importHelpers": true
-    // "forceConsistentCasingInFileNames": true
   },
   "include": ["main.ts", "./src/**/*"],
   "exclude": ["node_modules"]
