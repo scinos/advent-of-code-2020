@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import * as yargs from "yargs";
-import { run } from "./src/run";
+import { run } from "./src/runner";
 
 const main = (): void => {
   const args = yargs
