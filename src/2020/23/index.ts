@@ -1,4 +1,6 @@
 /* eslint-disable prefer-destructuring */
+import type { Solver } from "../../runner";
+
 class Cup {
   next: Cup;
 

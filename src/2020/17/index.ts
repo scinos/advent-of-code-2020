@@ -1,3 +1,5 @@
+import type { Solver } from "../../runner";
+
 const { getNeighborCoords, resetNeighborCoords } = (() => {
   let memoCoord: Map<string, string[]> = new Map();
 

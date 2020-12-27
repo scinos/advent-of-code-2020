@@ -10,9 +10,9 @@
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "sourceMap": true
+    "sourceMap": true,
     // "strict": true,
-    // "esModuleInterop": true,
+    "esModuleInterop": false
     // "skipLibCheck": true,
     // "forceConsistentCasingInFileNames": true
   },
