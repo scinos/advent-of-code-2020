@@ -22,6 +22,7 @@ module.exports = {
   rules: {
     "import/extensions": ["error", "never"],
     "import/prefer-default-export": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "mocha/no-mocha-arrows": "off",
     "default-case": "off",
     "no-bitwise": "off",

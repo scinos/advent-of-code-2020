@@ -1,19 +1,21 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "lib": ["ES2020", "ESNext"],
+    "lib": ["ESNext"],
     "typeRoots": ["./node_modules/@types"],
     "target": "es2020",
 
     "outDir": "dist",
+    "composite": true,
+    "incremental": true,
 
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    // "strict": true,
-    "esModuleInterop": false
-    // "skipLibCheck": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "importHelpers": true
     // "forceConsistentCasingInFileNames": true
   },
   "include": ["main.ts", "./src/**/*"],
