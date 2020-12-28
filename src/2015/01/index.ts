@@ -16,5 +16,5 @@ export const part2: Solver = (input) => {
 
     if (total === -1) return String(i + 1);
   }
-  return "";
+  throw new Error("Not found");
 };
