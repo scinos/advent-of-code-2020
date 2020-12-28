@@ -1,11 +1,15 @@
+/* eslint-disable no-await-in-loop */
 import { readFileSync } from "fs";
 import { join } from "path";
-import { measure } from "./lib/measure";
+import { measureAsync } from "./lib/measure";
 
 import * as solvers2015 from "./2015";
 import * as solvers2020 from "./2020";
 
-export type Solver = (lines: string[]) => string;
+export type SyncSolver = (lines: string[]) => string;
+export type AsyncSolver = (lines: string[]) => Promise<string>;
+export type Solver = SyncSolver | AsyncSolver;
+
 export interface Arguments {
   day?: number;
   year?: number;
@@ -38,7 +42,9 @@ const solvers: {
 }));
 
 // eslint-disable-next-line import/prefer-default-export
-export function* run(args: Arguments): Generator<string, void, void> {
+export async function* run(
+  args: Arguments
+): AsyncGenerator<string, void, void> {
   const filteredSolvers = solvers.filter(({ day, year }) => {
     if (args.day && day !== args.day) return false;
     if (args.year && year !== args.year) return false;
@@ -66,10 +72,14 @@ export function* run(args: Arguments): Generator<string, void, void> {
     const input = inputs[i];
 
     try {
-      const { duration: dur1, result: res1 } = measure(() => part1(input));
+      const { duration: dur1, result: res1 } = await measureAsync(async () =>
+        part1(input)
+      );
       yield `${year} Day ${printDay(day)} Part 1: ${printTime(dur1)} ${res1} `;
 
-      const { duration: dur2, result: res2 } = measure(() => part2(input));
+      const { duration: dur2, result: res2 } = await measureAsync(async () =>
+        part2(input)
+      );
       yield `${year} Day ${printDay(day)} Part 2: ${printTime(dur2)} ${res2} `;
 
       durationAll += dur1 + dur2;

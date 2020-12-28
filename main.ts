@@ -3,7 +3,7 @@
 import * as yargs from "yargs";
 import { run } from "./src/runner";
 
-const main = (): void => {
+const main = async (): void => {
   const args = yargs.usage("$0 [--year year] [--day day]\n").options({
     year: {
       describe: "year to run",
@@ -20,7 +20,7 @@ const main = (): void => {
     },
   }).argv;
 
-  for (const line of run(args)) {
+  for await (const line of run(args)) {
     console.log(line);
   }
 };

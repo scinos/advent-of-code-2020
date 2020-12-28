@@ -40,7 +40,7 @@
       "program": "${workspaceFolder}/node_modules/.bin/mocha",
       "args": [
         "--require",
-        "ts-node/register",
+        "ts-node/register/transpile-only",
         "--timeout",
         "999999",
         "--colors",
