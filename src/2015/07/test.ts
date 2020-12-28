@@ -1,8 +1,8 @@
 import { strict as assert } from "assert";
-import { part1, wire } from ".";
+import { part1, part2, wire } from ".";
 import { readInput } from "../../lib/readInput";
 
-describe.only("Day 7", () => {
+describe("Day 7", () => {
   describe("Part 1", () => {
     it("Example", async () => {
       const input = [

@@ -3,7 +3,7 @@
 import * as yargs from "yargs";
 import { run } from "./src/runner";
 
-const main = async (): void => {
+const main = async (): Promise<void> => {
   const args = yargs.usage("$0 [--year year] [--day day]\n").options({
     year: {
       describe: "year to run",

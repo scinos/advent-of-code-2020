@@ -12,7 +12,7 @@ describe("Day 23", () => {
         10
       );
 
-      let firstCup = cupIndex.get(1);
+      let firstCup = cupIndex.get(1)!;
       const result = new Array(8).fill(0).reduce((acc) => {
         firstCup = firstCup.next;
         acc += `${firstCup.id}`;
@@ -28,7 +28,7 @@ describe("Day 23", () => {
         100
       );
 
-      let firstCup = cupIndex.get(1);
+      let firstCup = cupIndex.get(1)!;
       const result = new Array(8).fill(0).reduce((acc) => {
         firstCup = firstCup.next;
         acc += `${firstCup.id}`;
@@ -43,7 +43,7 @@ describe("Day 23", () => {
         1e6,
         1e7
       );
-      const firstCup = cupIndex.get(1);
+      const firstCup = cupIndex.get(1)!;
       const result = String(firstCup.next.id * firstCup.next.next.id);
 
       assert.equal(result, "149245887792");

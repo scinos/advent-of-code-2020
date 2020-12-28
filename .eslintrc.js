@@ -37,6 +37,9 @@ module.exports = {
     "no-restricted-syntax": "off",
     "no-shadow": "off",
     "no-throw-literal": "off",
+
+    // TO DELETE:
+    "@typescript-eslint/no-unused-vars": "off",
   },
   settings: {
     "import/resolver": {
