@@ -41,7 +41,10 @@ describe("Day 14: Reindeer Olympics", () => {
         { name: "Comet", speed: 14, duration: 10, rest: 127 },
         { name: "Dancer", speed: 16, duration: 11, rest: 162 },
       ]);
-      assert.deepEqual(result, [{ name: "Comet", distance: 1120 }]);
+      assert.deepEqual(result, [
+        { name: "Comet", distance: 1120 },
+        { name: "Dancer", distance: 1056 },
+      ]);
     });
 
     it("Calculates the race outcomes with duplicates", () => {
