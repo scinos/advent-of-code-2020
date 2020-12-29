@@ -2,7 +2,7 @@ import { strict as assert } from "assert";
 import { part1, part2, sequence } from ".";
 import { readInput } from "../../lib/readInput";
 
-describe.only("Day 10: Elves Look, Elves Say", () => {
+describe("Day 10: Elves Look, Elves Say", () => {
   describe("Sequence generator", () => {
     it("Generates the next step in the sequence", () => {
       assert.equal(sequence("1"), "11");
