@@ -2,7 +2,7 @@ import { strict as assert } from "assert";
 import { part1, part2, CA, extract } from ".";
 import { readInput } from "../../lib/readInput";
 
-describe.only("Day 18: Like a GIF For Your Yard", () => {
+describe("Day 18: Like a GIF For Your Yard", () => {
   describe("Initial State Extractor", () => {
     it("Extracts the initial state", () => {
       assert.deepEqual(extract(["#.", ".#"]), [
